@@ -1,25 +1,28 @@
-student_grade = []
-grade = input("type student grade (type 'done' to finish): ")
+student_grades = []
 passed = 0
-average_grade = 0
-passing_percentage = 0
+valid_input = True
 
-while grade.lower() != 'done':
-    student_grade.append(float(grade))
-    grade = float(grade)
-    if 100>=grade>=40:
-        if grade >= 75:
-            passed += 1
-            passing_percentage = round (passed / len(student_grade), 2)
-            grade = input ("type student grade (type 'done' to finish): ")
-    else:
-        print ("Error: Invalid Grade")
+while True:
+    grade = input("Type student grade (type 'done' to finish): ")
+    
+    if grade.lower() == 'done':
         break
-        
-    grade = str(grade)
     
-    average_grade = round(sum(student_grade) / len(student_grade), 2)
+    grade = float(grade)
     
-print ("Average grade:" , average_grade)  
-print ("Number of student passed:" , passed)
-print ("Passing %:" , passing_percentage)
+    if grade < 40 or grade > 100:
+        print("Invalid grade")
+        valid_input = False
+        break
+    
+    student_grades.append(grade)
+    if grade >= 75:
+        passed += 1
+
+if valid_input and student_grades:
+    average_grade = round(sum(student_grades) / len(student_grades), 2)
+    passing_percentage = round(passed / len(student_grades) * 100, 2)
+    
+    print("Average grade:", average_grade)
+    print("Number of students passed:", passed)
+    print("Passing percentage:", passing_percentage)
